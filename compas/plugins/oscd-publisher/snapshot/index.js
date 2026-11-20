@@ -28979,6 +28979,13 @@ class MC extends T(O) {
   onClosed() {
     this.dispatchEvent(new Event("closed"));
   }
+  /**
+   * Scrim clicks and Escape dispatch `cancel` and then close.
+   * Buttons and Enter call `close()` themselves, so they still dismiss.
+   */
+  onDialogCancel(I) {
+    I.preventDefault();
+  }
   /** Enter follows the enabled Save button. Other controls keep their own Enter. */
   onDialogKeydown(I) {
     if (I.key !== "Enter" || I.repeat || I.isComposing || I.shiftKey || I.altKey || I.ctrlKey || I.metaKey || !this.open || !ac(I.composedPath())) return;
@@ -28999,6 +29006,7 @@ class MC extends T(O) {
   render() {
     const I = this.visiblePath();
     return J`<md-dialog
+      @cancel=${(C) => this.onDialogCancel(C)}
       @closed=${() => this.onClosed()}
       @keydown=${(C) => this.onDialogKeydown(C)}
     >
@@ -29052,6 +29060,12 @@ class MC extends T(O) {
       margin: 0;
       padding: 11px 24px 11px;
       background: var(--oscd-plugin-internal-base03);
+      border: none;
+      border-radius: var(--oscd-plugin-internal-shape) var(--oscd-plugin-internal-shape) 0 0;
+      box-shadow:
+        inset 1px 0 0 var(--oscd-plugin-internal-base0),
+        inset -1px 0 0 var(--oscd-plugin-internal-base0),
+        inset 0 1px 0 var(--oscd-plugin-internal-base0);
       color: var(--oscd-plugin-internal-base3);
     }
 
