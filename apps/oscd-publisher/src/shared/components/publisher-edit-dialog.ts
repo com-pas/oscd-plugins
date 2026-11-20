@@ -116,6 +116,14 @@ export class PublisherEditDialog extends ScopedElementsMixin(LitElement) {
     this.dispatchEvent(new Event('closed'));
   }
 
+  /**
+   * Scrim clicks and Escape dispatch `cancel` and then close.
+   * Buttons and Enter call `close()` themselves, so they still dismiss.
+   */
+  private onDialogCancel(event: Event): void {
+    event.preventDefault();
+  }
+
   /** Enter follows the enabled Save button. Other controls keep their own Enter. */
   private onDialogKeydown(event: KeyboardEvent): void {
     if (event.key !== 'Enter' || event.repeat || event.isComposing) return;
@@ -146,6 +154,7 @@ export class PublisherEditDialog extends ScopedElementsMixin(LitElement) {
   render(): TemplateResult {
     const path = this.visiblePath();
     return html`<md-dialog
+      @cancel=${(event: Event) => this.onDialogCancel(event)}
       @closed=${() => this.onClosed()}
       @keydown=${(event: KeyboardEvent) => this.onDialogKeydown(event)}
     >
@@ -199,6 +208,12 @@ export class PublisherEditDialog extends ScopedElementsMixin(LitElement) {
       margin: 0;
       padding: 11px 24px 11px;
       background: var(--oscd-plugin-internal-base03);
+      border: none;
+      border-radius: var(--oscd-plugin-internal-shape) var(--oscd-plugin-internal-shape) 0 0;
+      box-shadow:
+        inset 1px 0 0 var(--oscd-plugin-internal-base0),
+        inset -1px 0 0 var(--oscd-plugin-internal-base0),
+        inset 0 1px 0 var(--oscd-plugin-internal-base0);
       color: var(--oscd-plugin-internal-base3);
     }
 
