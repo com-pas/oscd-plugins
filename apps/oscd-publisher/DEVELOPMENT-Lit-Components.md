@@ -1,6 +1,6 @@
 # UI components in oscd-publisher
 
-This plugin has no component library of its own. Buttons, dialogs, lists, and icons are [Material Web](https://github.com/material-components/material-web) (Material 3, tags such as `md-radio`). They are installed as `@scopedelement/material-web` 3.10.0, a fork of Google's package. SCL fields, the filterable list, and the tree picker come from `@openenergytools/*`.
+This plugin has no component library of its own. Buttons, dialogs, lists, and icons are [Material Web](https://github.com/material-components/material-web) (Material 3, tags such as `md-radio`). They are installed as `@scopedelement/material-web` 3.10.0, a fork of Google's package. The filterable list and the tree picker come from `@openenergytools/*`.
 
 The old `mwc-*` elements (`@material/mwc-*`) are not a dependency. CSS that still mentions `mwc-list-item` does not match the elements in use.
 
@@ -23,7 +23,7 @@ class MyEditor extends ScopedElementsMixin(LitElement) {
 
 Import the `Md*.js` file. The kebab-case sibling (`radio.js`, `text-button.js`, `dialog.js`, …) calls Lit's `@customElement()` and defines the tag on `window.customElements`. `src/oscd-publisher.ts` still imports `radio/radio.js`; new code should import `radio/MdRadio.js`.
 
-A child widget that has its own `scopedElements` (for example `scl-text-field`) registers the Material elements it needs. You do not register those inner tags on the editor.
+A child widget that has its own `scopedElements` registers the Material elements it needs. You do not register those inner tags on the editor.
 
 `md-icon` shows a Material Symbols Outlined ligature (`save`, `playlist_add`). The OpenSCD host supplies the font. Colors are the Material system variables `--md-sys-color-*`, which `oscd-publisher.ts` points at `--oscd-plugin-internal-*`.
 
@@ -50,9 +50,6 @@ The tag is the key in `static scopedElements`. The class file is the import that
 | `md-checkbox` | `MdCheckbox` | `@scopedelement/material-web` | `checkbox/MdCheckbox.js` | Multi-choice. Which IEDs receive a copy. |
 | `md-list` | `MdList` | `@scopedelement/material-web` | `list/MdList.js` | List surface. LDevice picker. |
 | `md-list-item` | `MdListItem` | `@scopedelement/material-web` | `list/MdListItem.js` | One row of `md-list`. |
-| `scl-text-field` | `SclTextField` | `@openenergytools/scl-text-field` | package root | SCL attribute as text. `value` is `string \| null`, with `nullable` and an optional SI unit. Wraps `md-filled-text-field`. |
-| `scl-select` | `SclSelect` | `@openenergytools/scl-select` | package root | SCL enumeration. `value` is `string \| null`. Wraps `md-filled-select`. |
-| `scl-checkbox` | `SclCheckbox` | `@openenergytools/scl-checkbox` | package root | SCL boolean. `value` is `'true' \| 'false' \| null`. Wraps `md-checkbox`. |
 | `action-list` | `ActionList` | `@openenergytools/filterable-lists` | `dist/ActionList.js` | Filterable list of IEDs, control blocks, DataSets, and FCDAs. Items are `ActionItem` objects, not DOM children. |
 | `tree-grid` | `TreeGrid` | `@openenergytools/tree-grid` | package root | Checkable tree for the DO and DA pickers. Pass `.tree` and read `.paths`. |
 
@@ -72,19 +69,19 @@ Same registration rules. "Scoped import" is safe to import. "Global on import" m
 | `md-outlined-icon-button` | `MdOutlinedIconButton` | `iconbutton/outlined-icon-button.js` | Outlined icon button. | Global on import |
 | `md-fab` | `MdFab` | `fab/MdFab.js` | Floating action button. | Scoped import |
 | `md-branded-fab` | `MdBrandedFab` | `fab/branded-fab.js` | FAB with a brand icon. | Global on import |
-| `md-checkbox` | `MdCheckbox` | `checkbox/MdCheckbox.js` | Already used. Also the control inside `scl-checkbox`. | Scoped import |
+| `md-checkbox` | `MdCheckbox` | `checkbox/MdCheckbox.js` | Already used. | Scoped import |
 | `md-radio` | `MdRadio` | `radio/MdRadio.js` | Already used. | Scoped import |
-| `md-switch` | `MdSwitch` | `switch/MdSwtich.js` | On/off. Used inside `scl-text-field` and `scl-checkbox` for the null switch. | Scoped import |
-| `md-filled-text-field` | `MdFilledTextField` | `textfield/MdFilledTextField.js` | Filled text field. Inner control of `scl-text-field`. | Scoped import |
+| `md-switch` | `MdSwitch` | `switch/MdSwtich.js` | On/off. | Scoped import |
+| `md-filled-text-field` | `MdFilledTextField` | `textfield/MdFilledTextField.js` | Filled text field. | Scoped import |
 | `md-outlined-text-field` | `MdOutlinedTextField` | `textfield/MdOutlinedTextField.js` | Outlined text field. Filter box of `action-list` and `tree-grid`. | Scoped import |
 | `md-filled-field` | `MdFilledField` | `field/MdFilledField.js` | Field chrome used by filled inputs. Not a control by itself. | Scoped import |
 | `md-outlined-field` | `MdOutlinedField` | `field/MdOutlinedField.js` | Field chrome used by outlined inputs. | Scoped import |
-| `md-filled-select` | `MdFilledSelect` | `select/MdFilledSelect.js` | Filled select. Inner control of `scl-select`. | Scoped import |
+| `md-filled-select` | `MdFilledSelect` | `select/MdFilledSelect.js` | Filled select. | Scoped import |
 | `md-outlined-select` | `MdOutlinedSelect` | `select/outlined-select.js` | Outlined select. | Global on import |
 | `md-select-option` | `MdSelectOption` | `select/MdSelectOption.js` | One option of a select. | Scoped import |
 | `md-list` | `MdList` | `list/MdList.js` | Already used. Also the rows of `action-list` and `tree-grid`. | Scoped import |
 | `md-list-item` | `MdListItem` | `list/MdListItem.js` | Already used. | Scoped import |
-| `md-menu` | `MdMenu` | `menu/MdMenu.js` | Popup menu. Used inside `action-list` and `scl-text-field`. | Scoped import |
+| `md-menu` | `MdMenu` | `menu/MdMenu.js` | Popup menu. Used inside `action-list`. | Scoped import |
 | `md-menu-item` | `MdMenuItem` | `menu/MdMenuItem.js` | One menu row. | Scoped import |
 | `md-sub-menu` | `MdSubMenu` | `menu/sub-menu.js` | Nested menu. | Global on import |
 | `md-dialog` | `MdDialog` | `dialog/MdDialog.js` | Already used. | Scoped import |

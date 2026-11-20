@@ -6,7 +6,7 @@
  * so the playground also sets color-scheme.
  * Production never loads this file.
  *
- * Brands: openscd, bearingpoint, weidmueller.
+ * Brands: openscd, bearingpoint, weidmueller, omicron, transnetbw.
  */
 
 /**
@@ -52,6 +52,78 @@ html body {
   background: var(--oscd-base2);
 }
 
+/* OMICRONEnergyOSS: they do not have dark mode. */
+/* Source: https://github.com/OMICRONEnergyOSS/oscd-academy/blob/main/themes.css */
+html.omicron {
+  /* color variables names taken from Omicron Pallet (for reference) */
+  --french-blue-15: #0b335b;
+  --french-blue-55: #2485e5;
+  --french-blue-95: #b6d6f6;
+
+  --omicron-yellow: #f5e214;
+
+  --slate-0: #121417; /* L* ≈ 7% */
+  --slate-5: #1a1e23; /* L* ≈ 10% */
+  --slate-25: #3d4651; /* L* ≈ 26% */
+  --slate-30: #46505d; /* L* ≈ 30% */
+  --slate-65: #8b97a7; /* L* ≈ 58% */
+  --slate-70: #96a1b0; /* L* ≈ 62% */
+  --slate-95: #d0d5dc; /* L* ≈ 82% */
+  --slate-110: #f3f5f6; /* L* ≈ 94% */
+  --error: #dc322f;
+  
+  --oscd-theme-primary: var(--french-blue-15);
+  --oscd-theme-secondary: var(--french-blue-55);
+  --oscd-theme-error: var(--oscd-theme-error, #dc322f);
+  --oscd-theme-base03: var(--slate-0);
+  --oscd-theme-base02: var(--slate-5);
+  --oscd-theme-base01: var(--slate-25);
+  --oscd-theme-base00: var(--slate-30);
+  --oscd-theme-base0: var(--slate-65);
+  --oscd-theme-base1: var(--slate-70);
+  --oscd-theme-base2: var(--slate-110);
+  --oscd-theme-base3: white;
+
+  --oscd-shell-app-bar-icon-height: 24px;
+
+}
+
+html.transnetbw {
+  --oscd-theme-branding: TransnetBW;
+
+  --oscd-theme-primary: light-dark(#004552, #8ac6ce);
+  --oscd-theme-secondary: #0ca6c4;
+
+  --oscd-theme-base03: light-dark(#002b36, #ffffff);
+  --oscd-theme-base02: light-dark(#073642, #e3e3e3);
+  --oscd-theme-base01: light-dark(#586e75, #93a1a1);
+  --oscd-theme-base00: light-dark(#657b83, #839496);
+  --oscd-theme-base0: light-dark(#839496, #657b83);
+  --oscd-theme-base1: light-dark(#93a1a1, #586e75);
+  --oscd-theme-base2: light-dark(#e3e3e3, #073642);
+  --oscd-theme-base3: light-dark(#ffffff, #002b36);
+
+  --oscd-theme-yellow: #b58900;
+  --oscd-theme-orange: #cb4b16;
+  --oscd-theme-red: #dc322f;
+  --oscd-theme-magenta: #d33682;
+  --oscd-theme-violet: #6c71c4;
+  --oscd-theme-blue: #268bd2;
+  --oscd-theme-cyan: #2aa198;
+  --oscd-theme-green: #859900;
+
+  --oscd-theme-text-font: 'Roboto';
+  --oscd-theme-text-font-mono: 'Roboto Mono';
+  --oscd-theme-icon-font: 'Material Symbols Outlined';
+
+  --oscd-theme-shape: 8px;
+
+  --oscd-compas-theme-body-bg: var(--oscd-theme-base3);
+  --oscd-compas-theme-nav-primary: #004552;
+  --oscd-compas-theme-nav-primary-active: #005b6c;
+  --oscd-compas-theme-nav-primary-text: #fff;
+  --oscd-compas-theme-nav-primary-text-active: #fff;
+}
 
 html.weidmueller {
   --oscd-theme-branding: a0fb35e6-5366-48d9-8c48-4ab1a6d6273c;
@@ -117,15 +189,15 @@ html.bearingpoint {
   --internal-secondary-dark: #a070ff;
 
   /* Gray scale */
-  --internal-gray-10: #f7f7f7; /* lightest */
-  --internal-gray-20: #e6e6e6;
-  --internal-gray-30: #cccccc;
-  --internal-gray-40: #b3b3b3;
-  --internal-gray-50: #999999;
-  --internal-gray-60: #808080;
-  --internal-gray-70: #666666;
-  --internal-gray-80: #4d4d4d;
-  --internal-gray-90: #333333; /* darkest */
+  --internal-gray-10: #ffffff; /* lightest */
+  --internal-gray-20: #e0e0e0;
+  --internal-gray-30: #c2c2c2;
+  --internal-gray-40: #a3a3a3;
+  --internal-gray-50: #858585;
+  --internal-gray-60: #666666;
+  --internal-gray-70: #474747;
+  --internal-gray-80: #292929;
+  --internal-gray-90: #0a0a0a; /* darkest */
 
   --oscd-theme-primary: light-dark(var(--internal-primary-light), var(--internal-primary-dark));
   --oscd-theme-secondary: light-dark(var(--internal-secondary-light), var(--internal-secondary-dark));
@@ -154,6 +226,8 @@ html.bearingpoint {
   
   --oscd-theme-shape: 8px;
 
+  /* Host distribution only. --oscd-compas-theme-body-bg is the page fallback behind plugin surfaces. */
+  --oscd-compas-theme-body-bg: var(--oscd-theme-base3);
   --oscd-compas-theme-nav-primary: var(--internal-primary-light);
   --oscd-compas-theme-nav-primary-active: var(--oscd-theme-secondary);
   --oscd-compas-theme-nav-primary-text: #fff;
@@ -162,6 +236,24 @@ html.bearingpoint {
 
 /* High-contrast palette for the host presets. */
 @media (prefers-contrast: more) {
+  html.transnetbw {
+    /* Brand – High Contrast */
+    --oscd-theme-primary: light-dark(#002b36, #c5edf0);
+    --oscd-theme-secondary: light-dark(#002b36, #c5edf0);
+
+    --oscd-theme-base03: light-dark(#000000, #ffffff);
+    --oscd-theme-base02: light-dark(#202020, #e0e0e0);
+    --oscd-theme-base01: light-dark(#404040, #c0c0c0);
+    --oscd-theme-base00: light-dark(#505050, #b0b0b0);
+    --oscd-theme-base0: light-dark(#b0b0b0, #505050);
+    --oscd-theme-base1: light-dark(#c0c0c0, #404040);
+    --oscd-theme-base2: light-dark(#e0e0e0, #202020);
+    --oscd-theme-base3: light-dark(#ffffff, #000000);
+
+    --oscd-compas-theme-nav-primary: #002b36;
+    --oscd-compas-theme-nav-primary-active: #004552;
+    --oscd-compas-theme-nav-primary-text-active: #bfbb0d;
+  }
   html.weidmueller {
     /* Brand – High Contrast */
     --internal-primary-light: #b35000;
@@ -206,6 +298,8 @@ html.bearingpoint {
  * Plugin-Relevant DEFAULTS from Open-SCD PR: https://github.com/com-pas/open-scd/pull/169,
  * https://github.com/brabenetz/compas-open-scd/blob/feature/issue-534_customer-branding/packages/openscd/src/themes.ts 
  */
+html.transnetbw,
+html.omicron,
 html.openscd,
 html.weidmueller,
 html.bearingpoint {

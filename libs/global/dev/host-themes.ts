@@ -6,7 +6,12 @@
  */
 
 export type ThemeMode = 'light' | 'dark';
-export type ThemeBrand = 'openscd' | 'bearingpoint' | 'weidmueller';
+export type ThemeBrand =
+  | 'openscd'
+  | 'bearingpoint'
+  | 'weidmueller'
+  | 'omicron'
+  | 'transnetbw';
 
 export interface HostThemePreset {
   brand: ThemeBrand;
@@ -17,6 +22,8 @@ export const HOST_THEME_PRESETS: HostThemePreset[] = [
   { brand: 'openscd', label: 'OpenSCD' },
   { brand: 'bearingpoint', label: 'BearingPoint' },
   { brand: 'weidmueller', label: 'Weidmueller' },
+  { brand: 'omicron', label: 'OMICRON' },
+  { brand: 'transnetbw', label: 'TransnetBW' },
 ];
 
 /** Brand class names on <html> (mode is a separate class). */

@@ -187,18 +187,9 @@ importers:
       '@openenergytools/open-scd-core':
         specifier: ^0.0.5
         version: 0.0.5
-      '@openenergytools/scl-checkbox':
-        specifier: ^2.0.0
-        version: 2.0.0
       '@openenergytools/scl-lib':
         specifier: ^1.2.3
         version: 1.8.0
-      '@openenergytools/scl-select':
-        specifier: ^2.0.1
-        version: 2.0.1
-      '@openenergytools/scl-text-field':
-        specifier: ^2.0.2
-        version: 2.0.2
       '@openenergytools/tree-grid':
         specifier: 1.0.1
         version: 1.0.1
@@ -1425,17 +1416,8 @@ packages:
   '@openenergytools/open-scd-core@0.0.5':
     resolution: {integrity: sha512-jkZH5zQi87bhyeo4oDFTwr6hM0F1oEGT58R/Tq4ii0FJHE5SWinraoufwaClWE+U2DaBuj440tIssCZTY9cw3A==}
 
-  '@openenergytools/scl-checkbox@2.0.0':
-    resolution: {integrity: sha512-dpehMi+aoVRJJv5f3iSUO3n6MNdfeRdFljtxVLj8Sk6s3cp8udiweUkziSN7DUMwDwYiSqx022eQQVZf2XiYWw==}
-
   '@openenergytools/scl-lib@1.8.0':
     resolution: {integrity: sha512-l8D7boLoUpP+C/J2ue7aY/12euRtK2k4EYKsyysoFto9sySCnlX/KWom5ruP7MtH8n0BEMSUuFg1gKfC+lD80Q==}
-
-  '@openenergytools/scl-select@2.0.1':
-    resolution: {integrity: sha512-SFlSnxR7FetgkSagKn7gULpTof+BwsN2smDhLbZUSgBDUkuBO9OCov1RNFE85OjXR8KzPu06HOJcpBHOnqe7pw==}
-
-  '@openenergytools/scl-text-field@2.0.2':
-    resolution: {integrity: sha512-VqlwWkogqfcUckOj1DMMzTgPWGn2HZWPSVEAwNsq1sUo5q0Bt79bKNGVr7aYxINRxjMC/avAkxXH5Y62Kh+Lww==}
 
   '@openenergytools/tree-grid@1.0.1':
     resolution: {integrity: sha512-yw1vJRmbfSl4YwE8ZdHQuMU/lgeW8PkJWnh6gFpF34+CJoUmv5goDoIj3U2J7Ex11+sUrbX0e/CAmcuf4NaWlg==}
@@ -5168,31 +5150,7 @@ snapshots:
       ace-custom-element: 1.6.5
       lit: 2.4.0
 
-  '@openenergytools/scl-checkbox@2.0.0':
-    dependencies:
-      '@open-wc/scoped-elements': 3.0.10
-      '@scopedelement/material-web': 3.10.0
-      lit: 3.3.3
-    optionalDependencies:
-      '@rollup/rollup-linux-x64-gnu': 4.68.7
-
   '@openenergytools/scl-lib@1.8.0': {}
-
-  '@openenergytools/scl-select@2.0.1':
-    dependencies:
-      '@open-wc/scoped-elements': 3.0.10
-      '@scopedelement/material-web': 3.10.0
-      lit: 3.3.3
-    optionalDependencies:
-      '@rollup/rollup-linux-x64-gnu': 4.68.7
-
-  '@openenergytools/scl-text-field@2.0.2':
-    dependencies:
-      '@open-wc/scoped-elements': 3.0.10
-      '@scopedelement/material-web': 3.10.0
-      lit: 3.3.3
-    optionalDependencies:
-      '@rollup/rollup-linux-x64-gnu': 4.68.7
 
   '@openenergytools/tree-grid@1.0.1':
     dependencies:

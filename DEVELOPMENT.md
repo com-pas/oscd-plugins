@@ -42,7 +42,7 @@ JavaScript does not set individual CSS variables. To add a brand, add an `html.{
 
 | Control | Options |
 |---------|---------|
-| Brand preset | `openscd` (default), `bearingpoint`, `weidmueller` |
+| Brand preset | `openscd` (default), `bearingpoint`, `weidmueller`, `omicron`, `transnetbw` |
 | Mode | `light` / `dark` |
 | SCL document | Subset from `libs/global/dev/files/` |
 | XML | Right-hand inspector. Formatted SCL, live after edits. Drag the left edge to resize. Disabled with tooltip `SCD file too big to format` when the source is larger than `XML_INSPECTOR_MAX_BYTES` in `xml-inspector.ts` (100 kB) |

@@ -14,4 +14,4 @@ The host loads `dist/apps/<app>/index.js`. `src/main.ts` is never that bundle.
 
 ## Language
 
-Reply to the user in German. Keep notes, commits, and code comments in English and short.
+Reply to the user in his own Language. Keep notes, commits, and code comments in English and short.
