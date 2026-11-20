@@ -5,15 +5,20 @@
 ```bash
 pnpm install
 pnpm verify
-pnpm build
+pnpm run run:oscd-publisher
 ```
 
-| Script | What you get |
-|--------|----------------|
-| `pnpm verify` | Lint, typecheck, and test for every project |
-| `pnpm build` | `dist/apps/<name>/index.js` for each plugin. Exits successfully when no plugin has a build target |
+Open http://localhost:4201 (or the next free port Vite prints).
 
-Each plugin adds `pnpm run run:<name>` (playground, hot reload) and `pnpm run preview:<name>` (the `index.js` the host loads). Plugins use port **4201** (`run`) and **4301** (`preview`). If the port is taken, Vite picks the next free one.
+| Script | Hot reload | What you get |
+|--------|------------|----------------|
+| `pnpm run run:oscd-publisher` | Auto | Standalone Lit publisher and the theme/document playground |
+| `pnpm run preview:oscd-publisher` | Manual | Production `index.js` (Lit bundle) |
+| `pnpm run build:oscd-publisher` | — | `dist/apps/oscd-publisher/index.js` for OpenSCD |
+| `pnpm verify` | — | Lint, typecheck, and test for every project |
+| `pnpm build` | — | `dist/apps/<name>/index.js` for every plugin |
+
+Plugins use port **4201** (`run`) and **4301** (`preview`). If the port is taken, Vite picks the next free one.
 
 There is no Open/Save in the playground. Pick an SCL file in the toolbar.
 

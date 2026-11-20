@@ -1,0 +1,6 @@
+oscd-publisher
+Copyright Jakob Vogelsang and contributors.
+
+This application is a copy of the OpenSCD publisher plugin
+(https://github.com/openenergytools/oscd-publisher), licensed under
+the Apache License, Version 2.0. See LICENSE in this directory.

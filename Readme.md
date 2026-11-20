@@ -11,11 +11,10 @@ Colors use the host theme tokens (`--oscd-theme-*`), mapped once to `--oscd-plug
 ```bash
 pnpm install
 pnpm verify
+pnpm run run:oscd-publisher
 ```
 
-`pnpm verify` runs lint, typecheck, and tests. `pnpm build` builds every plugin. With no plugin in the workspace yet, the build exits successfully and writes nothing under `dist/apps/`.
-
-Plugin run and preview scripts are added with each plugin. See [DEVELOPMENT.md](DEVELOPMENT.md).
+`pnpm verify` runs lint, typecheck, and tests. `pnpm build` writes `dist/apps/<name>/index.js` for every plugin. The playground is `pnpm run run:oscd-publisher`. See [DEVELOPMENT.md](DEVELOPMENT.md).
 
 ## Release
 

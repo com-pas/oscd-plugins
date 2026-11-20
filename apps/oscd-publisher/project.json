@@ -1,0 +1,74 @@
+{
+  "name": "oscd-publisher",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/oscd-publisher/src",
+  "projectType": "application",
+  "tags": [],
+  "targets": {
+    "lint": {
+      "command": "eslint apps/oscd-publisher/**/*.{ts,spec.ts}"
+    },
+    "check": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npx tsc -p tsconfig.app.json --noEmit",
+        "cwd": "apps/oscd-publisher"
+      }
+    },
+    "build": {
+      "executor": "@nx/vite:build",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "outputPath": "dist/apps/oscd-publisher"
+      },
+      "configurations": {
+        "development": {
+          "mode": "development"
+        },
+        "production": {
+          "mode": "production"
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nx/vite:dev-server",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "oscd-publisher:build"
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "oscd-publisher:build:development",
+          "hmr": true
+        },
+        "production": {
+          "buildTarget": "oscd-publisher:build:production",
+          "hmr": false
+        }
+      }
+    },
+    "preview": {
+      "executor": "@nx/vite:preview-server",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "oscd-publisher:build"
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "oscd-publisher:build:development"
+        },
+        "production": {
+          "buildTarget": "oscd-publisher:build:production"
+        }
+      }
+    },
+    "test": {
+      "executor": "@nx/vite:test",
+      "outputs": ["{options.reportsDirectory}"],
+      "options": {
+        "reportsDirectory": "../../coverage/apps/oscd-publisher"
+      }
+    }
+  }
+}

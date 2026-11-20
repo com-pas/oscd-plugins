@@ -6,6 +6,9 @@
   "type": "module",
   "scripts": {
     "build": "node scripts/build.mjs",
+    "build:oscd-publisher": "nx run --prod oscd-publisher:build --no-outputhashing --emptyOutDir --verbose",
+    "run:oscd-publisher": "nx run oscd-publisher:serve",
+    "preview:oscd-publisher": "nx run --prod oscd-publisher:preview",
     "test:all": "nx run-many --target=test",
     "lint": "nx run-many --target=lint",
     "check": "nx run-many --target=check",
