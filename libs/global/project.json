@@ -1,0 +1,26 @@
+{
+  "name": "global-lib",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/global/src",
+  "projectType": "library",
+  "tags": [],
+  "targets": {
+    "lint": {
+      "command": "eslint libs/global/{src,dev}/**/*.{ts,spec.ts}"
+    },
+    "check": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "tsc -p tsconfig.lib.json --noEmit && tsc -p tsconfig.spec.json --noEmit",
+        "cwd": "libs/global"
+      }
+    },
+    "test": {
+      "executor": "@nx/vite:test",
+      "outputs": ["{options.reportsDirectory}"],
+      "options": {
+        "reportsDirectory": "../../coverage/libs/global"
+      }
+    }
+  }
+}

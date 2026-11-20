@@ -1,0 +1,100 @@
+/**
+ * OpenSCD host-theme bridge.
+ *
+ * Maps host theme variables '--oscd-theme-*' to --oscd-plugin-internal-*
+ * so component CSS can use a single fallback chain.
+ *
+ * Do NOT set --oscd-theme-* inside the production plugin.
+ *
+ * :host covers Shadow DOM (production plugin); :root covers standalone mount.
+ */
+
+:root,
+:host {
+  /* Helper "--oscd-plugin-internal-*" tokens, so that fallbacks and defaults has only to be assigned once. */
+  --oscd-plugin-internal-primary: var(--oscd-theme-primary, var(--oscd-primary, #2aa198));
+  --oscd-plugin-internal-secondary: var(--oscd-theme-secondary, var(--oscd-secondary, #6c71c4));
+  --oscd-plugin-internal-error: var(--oscd-theme-error, var(--oscd-error, #dc322f));
+  --oscd-plugin-internal-warning: var(--oscd-theme-warning, var(--oscd-warning, #b58900));
+
+  --oscd-plugin-internal-base03: var(--oscd-theme-base03, var(--oscd-base03, light-dark(#002b36, #fdf6e3)));
+  --oscd-plugin-internal-base02: var(--oscd-theme-base02, var(--oscd-base02, light-dark(#073642, #eee8d5)));
+  --oscd-plugin-internal-base01: var(--oscd-theme-base01, var(--oscd-base01, light-dark(#586e75, #93a1a1)));
+  --oscd-plugin-internal-base00: var(--oscd-theme-base00, var(--oscd-base00, light-dark(#657b83, #839496)));
+  --oscd-plugin-internal-base0: var(--oscd-theme-base0, var(--oscd-base0, light-dark(#839496, #657b83)));
+  --oscd-plugin-internal-base1: var(--oscd-theme-base1, var(--oscd-base1, light-dark(#93a1a1, #586e75)));
+  --oscd-plugin-internal-base2: var(--oscd-theme-base2, var(--oscd-base2, light-dark(#eee8d5, #073642)));
+  --oscd-plugin-internal-base3: var(--oscd-theme-base3, var(--oscd-base3, light-dark(#fdf6e3, #002b36)));
+
+  --oscd-plugin-internal-yellow: var(--oscd-theme-yellow, var(--oscd-yellow, #b58900));
+  --oscd-plugin-internal-orange: var(--oscd-theme-orange, var(--oscd-orange, #cb4b16));
+  --oscd-plugin-internal-red: var(--oscd-theme-red, var(--oscd-red, #dc322f));
+  --oscd-plugin-internal-magenta: var(--oscd-theme-magenta, var(--oscd-magenta, #d33682));
+  --oscd-plugin-internal-violet: var(--oscd-theme-violet, var(--oscd-violet, #6c71c4));
+  --oscd-plugin-internal-blue: var(--oscd-theme-blue, var(--oscd-blue, #268bd2));
+  --oscd-plugin-internal-cyan: var(--oscd-theme-cyan, var(--oscd-cyan, #2aa198));
+  --oscd-plugin-internal-green: var(--oscd-theme-green, var(--oscd-green, #859900));
+
+  --oscd-plugin-internal-text-font: var(--oscd-theme-text-font, var(--oscd-text-font, 'Roboto'));
+  --oscd-plugin-internal-text-font-mono: var(--oscd-theme-text-font-mono, var(--oscd-text-font-mono, 'Roboto Mono'));
+  /* NO var(--oscd-icon-font)! This was set to default 'Material Icons' on old system which doesn't work at all. */
+  --oscd-plugin-internal-icon-font: var(--oscd-theme-icon-font, 'Material Symbols Outlined');
+
+  --oscd-plugin-internal-shape: var(--oscd-theme-shape, var(--oscd-shape, 8px));
+  --oscd-plugin-internal-shape-none: 0;
+  --oscd-plugin-internal-shape-extra-small: calc(0.5 * var(--oscd-plugin-internal-shape)); /* 4px */
+  --oscd-plugin-internal-shape-small: var(--oscd-plugin-internal-shape); /* 8px */
+  --oscd-plugin-internal-shape-medium: calc(1.5 * var(--oscd-plugin-internal-shape)); /* 12px */
+  --oscd-plugin-internal-shape-large: calc(2 * var(--oscd-plugin-internal-shape)); /* 16px */
+
+  /* Navigation colors. Hosts may set --oscd-compas-theme-nav-* or --oscd-theme-nav-*. */
+  --oscd-plugin-internal-nav-primary: var(--oscd-compas-theme-nav-primary, var(--oscd-theme-nav-primary, var(--oscd-plugin-internal-cyan)));
+  --oscd-plugin-internal-nav-primary-active: var(--oscd-compas-theme-nav-primary-active, var(--oscd-theme-nav-primary-active, var(--oscd-plugin-internal-violet)));
+  --oscd-plugin-internal-nav-primary-text: var(--oscd-compas-theme-nav-primary-text, var(--oscd-theme-nav-primary-text, #fff));
+  --oscd-plugin-internal-nav-primary-text-active: var(--oscd-compas-theme-nav-primary-text-active, var(--oscd-theme-nav-primary-text-active, #fff));
+}
+
+:root,
+:host {
+  /* SMUI outlined focus ring (Search / Status / Contributors / Kind) */
+  --mdc-theme-primary: var(--oscd-plugin-internal-primary);
+  --mdc-theme-surface: var(--oscd-plugin-internal-base3);
+  --mdc-theme-on-surface: var(--oscd-plugin-internal-base03);
+
+  --mdc-shape-none: var(--oscd-plugin-internal-shape-none);
+  --mdc-shape-extra-small: var(--oscd-plugin-internal-shape-extra-small);
+  --mdc-shape-small: var(--oscd-plugin-internal-shape-small);
+  --mdc-shape-medium: var(--oscd-plugin-internal-shape-medium);
+  --mdc-shape-large: var(--oscd-plugin-internal-shape-large);
+
+  --mdc-icon-font: var(--oscd-plugin-internal-icon-font);
+}
+
+/* MDC filled shape rounds only the top; outlined notched outline rounds all
+   four corners. Match the container fill to the outline so the surface does
+   not poke out as square corners. */
+.mdc-text-field--outlined,
+.mdc-select--outlined,
+.mdc-select--outlined .mdc-select__anchor {
+  border-radius: var(--oscd-plugin-internal-shape-small);
+}
+
+/** dark mode set color for smui componenten. */
+.mdc-text-field:not(.mdc-text-field--disabled) .mdc-floating-label {
+  color: color-mix(in srgb, var(--oscd-plugin-internal-base02) 60%, transparent);
+}
+.mdc-text-field:not(.mdc-text-field--disabled) .mdc-text-field__input {
+  color:  color-mix(in srgb, var(--oscd-plugin-internal-base02) 87%, transparent);
+}
+.mdc-text-field:not(.mdc-text-field--disabled) .mdc-text-field__icon--leading {
+  color:  color-mix(in srgb, var(--oscd-plugin-internal-base02) 54%, transparent);
+}
+.mdc-select:not(.mdc-select--disabled) .mdc-select__selected-text {
+  color:  color-mix(in srgb, var(--oscd-plugin-internal-base02) 87%, transparent);
+}
+.mdc-select:not(.mdc-select--disabled) .mdc-select__dropdown-icon {
+  fill:  color-mix(in srgb, var(--oscd-plugin-internal-base02) 54%, transparent);
+}
+.mdc-menu .mdc-deprecated-list {
+  color:  color-mix(in srgb, var(--oscd-plugin-internal-base02) 87%, transparent);
+}

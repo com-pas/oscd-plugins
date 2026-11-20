@@ -1,0 +1,30 @@
+/**
+ * OpenSCD host typography classes (no @font-face).
+ *
+ * Font files come from the host in production. Standalone dev registers the
+ * same faces from libs/global/dev/google (see oscd-fonts.css).
+ * Classes must be in the plugin bundle because they do not pierce Shadow DOM.
+ *
+ * Sources: open-scd packages/distribution/public/google/icons/*.css
+ */
+
+.oscd-icons,
+.material-icons,
+.material-icons-outlined,
+.material-symbols-outlined,
+.mdc-text-field__icon,
+.mdc-select__icon {
+  font-family: var(--oscd-plugin-internal-icon-font);
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-feature-settings: 'liga';
+  -webkit-font-smoothing: antialiased;
+}
