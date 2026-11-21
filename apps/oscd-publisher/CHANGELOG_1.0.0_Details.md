@@ -23,6 +23,8 @@ Each page is a left overview and, when a row is open, a detail on the right. Spa
 
 Edit forms use the same compact outlined fields, with a lock column so optional values line up. GOOSE, Report, and Sampled Value dialogs are two columns of cards, about 1200 px wide and capped by the viewport. The Data Set dialog is one General card. The dialog title carries the control name and its SCL path. A border keeps that dark bar distinct from the dialog body.
 
+![More Compact View](docs/v1.0.0/01_More-Compact-View.png)
+
 ## 2. Create and edit in one dialog
 
 GOOSE, Report, and Sampled Value no longer keep a permanent editor in the right-hand column. The pencil on a row opens that control’s dialog and leaves the detail closed. A row click still opens the connected Data Set.
@@ -33,6 +35,8 @@ Inside a control dialog, Change data set only stages the choice. Save or Add wri
 
 A closed lock means the XML attribute is absent. Opening the lock writes a value; closing it removes the attribute again. Text, checkbox, radio, and select all use that pattern, so a click on a choice enables Save.
 
+![Create Edit with one Dialog](docs/v1.0.0/02_Create-Edit-One-Dialog.png)
+
 ## 3. Sampled Values can be created
 
 In the old version an existing Sampled Value control could be opened or removed. There was no way to add one.
@@ -42,6 +46,8 @@ Each IED group now has Add Sampled Value. The dialog covers the control, its sam
 Multicast stays paired with that address. A missing `multicast` attribute means multicast is on. Unicast (`multicast="false"`) has no SMV address. Turning multicast off in the dialog removes the address on save; turning it back on prepares the address again when the IED has a connection to a SubNetwork. An IED without that connection shows that no connection is available.
 
 The plus stays disabled, with a reason, when the IED has no LN0, no `Services > SMVsc`, or the SMVsc maximum is already filled.
+
+![Add Sample Value](docs/v1.0.0/03_Add-Sample-Value.png)
 
 ## 4. Overviews are grouped by IED and start closed on a large file
 
@@ -54,6 +60,8 @@ A link from a control to its Data Set opens only that control’s IED when the D
 Search shows the matching rows while the query is in the field, including inside groups that are stored as closed. Clearing the search returns to that closed state. The chevron on a group that is only open because of the search does not pin it open. Expand all during a search does pin the groups open.
 
 Expanding one very large IED, or using Expand all on a large page, still renders those rows. That cost is accepted.
+
+![Grouped by IED](docs/v1.0.0/04_Grouped_by_IED.png)
 
 ## 5. The overview shows the attributes that used to sit in the side editor
 
@@ -70,6 +78,8 @@ The Report badge is not the number of `ReportControl` elements. It is the sum of
 
 On a Data Set, the entries are a table: drag handle, checkbox, Signal, Type, and Path. In the old version the same FCDA was one action row, with the description as supporting text and separate move-up and move-down actions. Signal is `ldInst/prefix+lnClass+lnInst.doName`, plus `.daName` when present. Type is the functional constraint, such as `ST` or `MX`. Path joins the `desc` texts found from the LDevice down to the data attribute. The header shows `n / max Entries` from `ConfDataSet@maxAttributes`. The count stays the full Data Set size while a filter is active. Add data attribute and Add data object sit beside that count and stay disabled when the Data Set cannot take another FCDA.
 
+![Attributes shown in the overview](docs/v1.0.0/05_Attributes_shown_Overview.png)
+
 ## 6. Linking a Data Set, and a lock when another IED subscribes
 
 Connect on a control row writes `datSet` immediately and leaves the detail closed. The Data Set name in the row jumps to the Data Sets page and selects that Data Set.
@@ -82,6 +92,8 @@ When `findControlBlockSubscription` finds a matching `ExtRef`, both unlink and C
 
 The check matches the control’s IED name, `srcCBName`, service type (Report, GOOSE, or SMV), logical device, prefix, `lnClass`, and `lnInst`.
 
+![Link and unlink a Data Set](docs/v1.0.0/06_Link_Unlink_Dataset.png)
+
 ## 7. Data Set entries are reordered by drag and drop
 
 The move-up and move-down buttons are a grip on the row. Dragging moves that one FCDA. A drop on another row inserts before it. A drop after the last visible row inserts after that row. Dropping a row on itself changes nothing. Several checked rows are not moved together.
@@ -90,11 +102,15 @@ Visible rows can be selected together. The header checkbox selects the rows the 
 
 Search entries filters Signal, Type, and Path. The entry count next to it does not change with the filter.
 
+![Reorder attributes](docs/v1.0.0/07_Reorder-Attributes.png)
+
 ## 8. Enter saves the open form
 
 In the Data Set, Report, GOOSE, and Sampled Value edit dialogs, plain Enter activates the enabled Add or Save changes button. That includes Enter from a text field and from the dialog surface, such as a heading.
 
 Enter is left to the control itself for a select, a checkbox, a radio, the lock, Cancel, and the action buttons. Nothing is saved when Add or Save is disabled, when Shift, Ctrl, Alt, or Meta is held, when the key is repeating, or while an IME composition is open. An unchanged Data Set name leaves the dialog open.
+
+![Dialog closes with Enter or Escape](docs/v1.0.0/08_Dialog_Close_with_ENTER_or_ESC.png)
 
 ## 9. Tooltips explain why an action is blocked
 
@@ -141,18 +157,26 @@ Fields add a short supporting line where the value is easy to misread. Examples:
 
 The lock column uses Enable or Clear plus the field label.
 
+![Tooltip examples](docs/v1.0.0/09_Tooltips-Examples.png)
+
 ## 10. Overview search waits until typing pauses
 
 The overview filter used to run on every key. The field still shows the typed text immediately. The row filter, and the search value remembered for that page, update 200 ms after the last key. Another key restarts the wait. The same 200 ms pause is used before the dialog title follows the name field.
 
 A search value set from outside the field, including the text restored when returning to a page, applies at once. The filter matches the control or Data Set name and its SCL path. A query that matches an IED name shows that whole group.
 
+![Search field](docs/v1.0.0/10_Search-Field.png)
+
 ## 11. Faster Development - Playground theme bar
 
 The standalone playground keeps its document and theme controls in a top bar and can switch host presets, including the navigation colors the new publisher bar uses. Log events from the host are written to the browser console. The production plugin does not load this bar. In OpenSCD or CoMPAS the host still supplies the theme tokens and the fonts.
+
+![Development playground](docs/v1.0.0/11_Development_Playground.png)
 
 ## 12. Add LDeviceChooser for GOOSE, Report, or Sampled Value
 
 In the old version, the plus asked which LDevice receives a new Data Set when the IED has more than one. That dialog now opens for a new GOOSE, Report, or Sampled Value as well. One LDevice still skips it and opens the create form. The list shows each `inst` under the title Select LDevice. Select continues into the create dialog. Cancel writes nothing.
 
 The control is created on the LN0 of the chosen LDevice. A Report uses the first LN0 or LN there, and a GOOSE or SMV address follows that LDevice. A row stays disabled when it cannot take the entry: a Data Set without LN0, without `ConfDataSet`, or at its maximum; a GOOSE or Sampled Value without LN0; a Report with neither LN0 nor LN. The GOOSE, Report, and Sampled Value maximum stays on the IED plus.
+
+![LDevice chooser for Reports, GOOSE, and Sampled Values](docs/v1.0.0/12_LDeviceChooser_for_Reports_GOOSE_SampleValues.png)
