@@ -1,27 +1,17 @@
-# OpenSCD plugins
+# CoMPAS OpenSCD plugins
 
-Monorepo for OpenSCD / CoMPAS plugins. Each plugin lives under `apps/<name>/`. Shared code lives under `libs/`.
+[CoMPAS](https://lfenergy.org/projects/compas/) is the LF Energy project for configuration of protection, automation, and control systems. Its editor is OpenSCD. Plugins extend that editor. CoMPAS loads each plugin as one `index.js` from a URL.
 
-The host loads one file per plugin: `dist/apps/<name>/index.js`. CSS is inlined. The playground entry `src/main.ts` is not that file.
+This repository holds those plugins.
 
-Colors use the host theme tokens (`--oscd-theme-*`), mapped once to `--oscd-plugin-internal-*`. The plugin does not ship its own fonts. The host provides them.
+## Plugins
 
-## Scripts
+| Plugin | Changelog | Snapshot | Description |
+| --- | --- | --- | --- |
+| [Publisher](apps/oscd-publisher/README.md) | [Changelog](apps/oscd-publisher/CHANGELOG.md) | [index.js](https://com-pas.github.io/oscd-plugins/compas/plugins/oscd-publisher/snapshot/index.js) | Publisher edits Data Sets, Reports, GOOSE, and Sampled Values in an SCL file. |
 
-```bash
-pnpm install
-pnpm verify
-pnpm run run:oscd-publisher
-```
+## Further reading
 
-`pnpm verify` runs lint, typecheck, and tests. `pnpm build` writes `dist/apps/<name>/index.js` for every plugin. The playground is `pnpm run run:oscd-publisher`. See [DEVELOPMENT.md](DEVELOPMENT.md).
-
-## Release
-
-Pushing `main` deploys each built plugin to `gh-pages` at `compas/plugins/<plugin>/snapshot/`. A manually started GitHub Action, **Release Plugin**, publishes one plugin. The inputs are the plugin name and `MAJOR`, `MINOR`, or `PATCH` (default `MINOR`).
-
-The action reads the snapshot `index.js` and the commit SHA recorded with it. It refuses to publish when the snapshot or the SHA is missing, the SHA is not on `main`, that commit is already tagged for this plugin, or the same `index.js` is already stored under a version folder.
-
-Otherwise it copies the snapshot to `compas/plugins/<plugin>/<version>/` and tags `<plugin>-<version>` on the recorded commit. Older versions stay. npm is not part of this release.
-
-The `gh-pages` branch must exist before the first deploy.
+- [Development](DEVELOPMENT.md) is for people who build or change a plugin.
+- [CoMPAS](https://lfenergy.org/projects/compas/)
+- [Demo OpenSCD](https://openscd.github.io/)
