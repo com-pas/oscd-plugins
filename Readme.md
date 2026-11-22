@@ -13,5 +13,5 @@ This repository holds those plugins.
 ## Further reading
 
 - [Development](DEVELOPMENT.md) is for people who build or change a plugin.
-- [CoMPAS](https://lfenergy.org/projects/compas/)
-- [Demo OpenSCD](https://openscd.github.io/)
+- [CoMPAS](https://lfenergy.org/projects/compas/) is the LF Energy project that loads these plugins into its OpenSCD editor.
+- [Demo OpenSCD](https://openscd.github.io/) is a public OpenSCD where you can open an SCL file and try a plugin.
