@@ -9,9 +9,7 @@ on:
       - main
 
 permissions:
-  contents: write
-  pages: write
-  id-token: write
+  contents: read
 
 jobs:
   build-and-test:
@@ -28,7 +26,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
           cache: pnpm
 
       - name: Install Dependencies
@@ -45,12 +43,17 @@ jobs:
         with:
           name: dist
           path: dist
-          if-no-files-found: warn
+          include-hidden-files: true
 
   deploy:
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     needs: build-and-test
+    permissions:
+      contents: write
+    concurrency:
+      group: plugin-publication
+      cancel-in-progress: false
     steps:
       - name: Checkout gh-pages Branch
         uses: actions/checkout@v4
@@ -64,34 +67,50 @@ jobs:
           path: dist
 
       - name: Copy Built Files to Plugins Folder
+        id: copy_build
         run: |
+          set -euo pipefail
           mkdir -p compas/plugins
           # Nest each build under snapshot/ so index.js has the same path depth
           # as compas/plugins/<plugin>/<version>/index.js. Relative ../ loads
           # then resolve the same way. Leave any old flat index.js in place.
+          found=false
           for app in dist/apps/*; do
             [ -d "$app" ] || continue
+            found=true
             name=$(basename "$app")
             dest="compas/plugins/${name}/snapshot"
+            rm -rf -- "$dest"
             mkdir -p "$dest"
             cp -r "$app"/. "$dest"/
           done
+          if [ "$found" = false ]; then
+            echo "No plugin build output found in dist/apps." >&2
+            exit 1
+          fi
 
       - name: Commit and Push Changes
-        env:
-          SOURCE_SHA: ${{ github.sha }}
+        id: deploy_snapshot
         run: |
           set -euo pipefail
+          if ! [[ "$SOURCE_SHA" =~ ^[0-9a-f]{40}$ ]]; then
+            echo "SOURCE_SHA must be the full main build commit SHA." >&2
+            exit 1
+          fi
           git config user.name 'github-actions[bot]'
           git config user.email 'github-actions[bot]@users.noreply.github.com'
-          # The release workflow tags this SHA. Leave it in place when the copied
-          # build output is unchanged, so a docs-only main push does not move it.
-          changes=$(git status --porcelain -- compas/plugins | grep -v -F 'compas/plugins/SNAPSHOT_SHA' || true)
-          if [ -n "$changes" ]; then
-            printf '%s\n' "$SOURCE_SHA" > compas/plugins/SNAPSHOT_SHA
-            git add compas/plugins
-            git commit -m "Deploy latest build to plugins"
-          else
+          git add -- compas/plugins
+          if git diff --cached --quiet -- compas/plugins ':(exclude)compas/plugins/SNAPSHOT_SHA'; then
             echo "Build output unchanged. SNAPSHOT_SHA left as-is."
+          else
+            status=$?
+            if [ "$status" -ne 1 ]; then
+              exit "$status"
+            fi
+            printf '%s\n' "$SOURCE_SHA" > compas/plugins/SNAPSHOT_SHA
+            git add -- compas/plugins
+            git commit -m "Deploy latest build to plugins" -- compas/plugins
+            git push origin HEAD:refs/heads/gh-pages
           fi
-          git push origin gh-pages
+        env:
+          SOURCE_SHA: ${{ github.sha }}
